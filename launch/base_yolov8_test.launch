@@ -1,0 +1,9 @@
+<launch>
+    <arg name="user_name" default="recipelab" doc="user name"/>
+    <arg name="base_path" default="/home/$(arg user_name)/catkin_ws/src/yolov8/scripts/yolov8_test" doc="base path"/>
+    <arg name="message_display" default="screen" doc="output type"/>
+    
+    <node pkg="aliencontrol" type="aliencontrol" name="aliencontrol_yolov8_test" output="$(arg message_display)">
+        <param name="cmd" value="$(arg base_path)/run.sh $(arg base_path)"/>
+    </node>
+</launch>

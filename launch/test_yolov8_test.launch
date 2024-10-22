@@ -1,0 +1,24 @@
+<launch>
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+        <param name="video_device" value="/dev/video0" />
+        <!-- <param name="image_width" value="640" />
+        <param name="image_height" value="480" /> -->
+        <!-- <param name="image_width" value="320" />
+        <param name="image_height" value="240" /> -->
+        <param name="image_width" value="1280" />
+        <param name="image_height" value="960" />
+        <param name="pixel_format" value="yuyv" />
+        <param name="color_format" value="yuv422p" />
+        <param name="camera_frame_id" value="usb_cam" />
+        <param name="io_method" value="mmap"/>
+    </node>
+
+    <include file="$(find yolov8)/launch/base_yolov8_test.launch">
+        <arg name="message_display" value="screen"/>
+    </include>
+
+    <node pkg="image_view" type="image_view" name="image_view_yolov8_test" output="screen">
+        <remap from="image" to="/ultralytics/segmentation/image"/>
+        <param name="autosize" value="true"/>
+    </node>
+</launch>
