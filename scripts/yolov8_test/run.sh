@@ -16,4 +16,13 @@ then
     pip install -r requirements.txt &&\
     deactivate
 fi
-source venv/bin/activate && python yolov8_test.py
+
+if [ -z "$2" ]
+then
+    echo "No callback_hz supplied"
+    exit -1
+else
+    CALLBACK_HZ=$2
+    echo "callback_hz :" $CALLBACK_HZ
+fi
+source venv/bin/activate && python yolov8_test.py --callback_hz $CALLBACK_HZ
