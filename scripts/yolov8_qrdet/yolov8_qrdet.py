@@ -2,6 +2,7 @@
 
 import time
 
+import numpy as np
 import ros_numpy
 import rospy
 from sensor_msgs.msg import Image
@@ -34,7 +35,10 @@ def callback(data):
     array = ros_numpy.numpify(data)
     if det_image_pub.get_num_connections():
         det_result = detection_model(array, verbose=YOLO_LOG)
+        # print(type(det_result[0])) # <class 'ultralytics.engine.results.Results'>
         det_annotated = det_result[0].plot(show=False)
+        # print(type(det_annotated)) # <class 'numpy.ndarray'>
+        # print(np.shape(det_annotated)) # (480, 640, 3)
         det_image_pub.publish(ros_numpy.msgify(Image, det_annotated, encoding="rgb8"))
 
 # rospy.Subscriber("/camera/color/image_raw", Image, callback)
