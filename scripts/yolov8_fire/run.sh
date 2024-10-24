@@ -17,6 +17,19 @@ then
     deactivate
 fi
 
+if [ ! -f "fire.pt" ]
+then
+    # 압축
+    # tar cvzf fire.pt.tar.gz fire.pt && split -b 30M fire.pt.tar.gz fire.pt.tar.gz.split.
+
+    # 압축해제
+    echo "fire.pt not exist."
+    cd $1/model
+    cat fire.pt.tar.gz.split.* | tar xvzf -
+    mv fire.pt $1
+    cd $1
+fi
+
 if [ -z "$2" ]
 then
     echo "No callback_hz supplied"
